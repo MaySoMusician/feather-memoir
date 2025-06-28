@@ -1,7 +1,7 @@
 # Repository Summary
 
 ## Purpose
-Feather Memoir is a TypeScript AdonisJS application for archiving and processing user tweets. It supports normal tweets, retweets, and quoted tweets, storing data in a SQLite database via Lucid ORM.
+**Feather Memoir** is a TypeScript AdonisJS application for archiving and processing user tweets. It supports normal tweets, retweets, and quoted tweets, storing data in a SQLite database via Lucid ORM.
 
 ## Setup
 - Install dependencies: `npm install`
@@ -26,3 +26,7 @@ Feather Memoir is a TypeScript AdonisJS application for archiving and processing
 
 ## CI & Workflows
 No GitHub workflows detected in `.github/workflows`. CI-related tasks (lint, format, typecheck, tests) are defined as npm scripts in `package.json`.
+
+## Branch rules
+- The "master/main" branch is named `default`. Your work mostly will start from this branch unless otherwise stated, so be sure to pull all the remote changes before starting to work! Notice that this naming convention doesn't follow the today's widely-accepted git/github workflow standard.
+- The branch of your (i.e. OpenHands's) sessions should be named `openhands/<describe your work>`.
