@@ -31,8 +31,5 @@ jobs:
       - name: Check formatting
         run: npx prettier --check .
 
-      - name: Copy environment file
-        run: cp .env.example .env
-
       - name: Run tests
         run: npm run test
