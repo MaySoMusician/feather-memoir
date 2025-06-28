@@ -40,7 +40,6 @@
   4. Run type-check (`npm run typecheck`)
   5. Run lint (`npm run lint`)
   6. Check formatting (`npx prettier --check .`)
-
   7. Run tests (`npm run test`)
 - Environment variables are loaded from `.env.test`; no manual copy of `.env` is needed.
 - Any lint or formatting violations will cause CI to fail without auto-fixing.
