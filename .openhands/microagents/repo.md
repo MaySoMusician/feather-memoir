@@ -32,7 +32,7 @@
 - A GitHub Actions workflow is now located at `.github/workflows/ci.yml`.
 - It runs on:
   - Push events to the `default` branch
-  - Pull request events targeting the `default` branch
+  - All pull request events
 - Workflow steps:
   1. Checkout repository
   2. Setup Node.js 22.x with npm cache
@@ -40,8 +40,9 @@
   4. Run type-check (`npm run typecheck`)
   5. Run lint (`npm run lint`)
   6. Check formatting (`npx prettier --check .`)
-  7. Copy `.env.example` to `.env`
-  8. Run tests (`npm run test`)
+
+  7. Run tests (`npm run test`)
+- Environment variables are loaded from `.env.test`; no manual copy of `.env` is needed.
 - Any lint or formatting violations will cause CI to fail without auto-fixing.
 
 ## Branch rules
