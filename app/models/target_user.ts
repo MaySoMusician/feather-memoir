@@ -12,22 +12,34 @@ export default class TargetUser {
 
   private static async loadData(): Promise<TargetUserProps[]> {
     const jsonPath = app.makeURL('./static_data/target_users.json')
+    if (!app.inTest) {
+      // Production/Development: require main JSON file
+      const contents = await readFile(jsonPath, 'utf8')
+      return JSON.parse(contents) as TargetUserProps[]
+    }
+
+    // Test environment: try main JSON, fallback to example JSON
     const examplePath = app.makeURL('./static_data/target_users.example.json')
-    // Try loading the main JSON file, then fallback to example file
-    for (const filePath of [jsonPath, examplePath]) {
+    try {
+      const contents = await readFile(jsonPath, 'utf8')
+      return JSON.parse(contents) as TargetUserProps[]
+    } catch (error: any) {
+      if (error.code !== 'ENOENT') {
+        console.error(`Failed to load target users from ${jsonPath}`, error)
+        return []
+      }
       try {
-        const contents = await readFile(filePath, 'utf8')
+        const contents = await readFile(examplePath, 'utf8')
         return JSON.parse(contents) as TargetUserProps[]
-      } catch (error: any) {
-        // If file not found, continue to next
-        if (error.code !== 'ENOENT') {
-          console.error(`Failed to load target users from ${filePath}`, error)
+      } catch (exampleError: any) {
+        if (exampleError.code !== 'ENOENT') {
+          console.error(`Failed to load example target users from ${examplePath}`, exampleError)
           return []
         }
+        console.error('No target_users.json or example JSON found in static_data folder')
+        return []
       }
     }
-    console.error('No target_users.json or example JSON found in static_data folder')
-    return []
   }
 
   private static async getData(): Promise<TargetUserProps[]> {
