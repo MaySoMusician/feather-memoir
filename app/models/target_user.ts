@@ -1,5 +1,5 @@
-import { readFileSync } from 'fs'
-import Application from '@ioc:Adonis/Core/Application'
+import { readFileSync } from 'node:fs'
+import app from '@adonisjs/core/services/app'
 
 export interface TargetUserProps {
   id: number
@@ -11,7 +11,7 @@ export default class TargetUser {
   private static data: TargetUserProps[] = TargetUser.loadData()
 
   private static loadData(): TargetUserProps[] {
-    const filePath = Application.appRoot('static_data', 'target_users.json')
+    const filePath = app.makeURL('./static_data/target_users.json')
     try {
       const contents = readFileSync(filePath, 'utf8')
       return JSON.parse(contents) as TargetUserProps[]
