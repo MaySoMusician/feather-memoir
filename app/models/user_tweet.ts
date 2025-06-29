@@ -1,6 +1,8 @@
 import { DateTime } from 'luxon'
 import { BaseModel, beforeSave, column } from '@adonisjs/lucid/orm'
 
+import TargetUser from '#models/target_user'
+
 export default class UserTweet extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
@@ -87,6 +89,18 @@ export default class UserTweet extends BaseModel {
           'Invalid "quoted" tweet: "retweet" must be true and "quoter_*" fields must be set'
         )
       }
+    }
+  }
+
+  /**
+   * Validates that the target_user_id exists in the static TargetUser dataset
+   */
+  @beforeSave()
+  static validateTargetUserId(userTweet: UserTweet) {
+    if (!TargetUser.find(userTweet.target_user_id)) {
+      throw new Error(
+        `Invalid target_user_id: ${userTweet.target_user_id} does not exist.`
+      )
     }
   }
 }
