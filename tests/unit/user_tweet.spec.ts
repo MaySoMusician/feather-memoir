@@ -1,5 +1,6 @@
 import { test } from '@japa/runner'
 import UserTweet from '#models/user_tweet'
+import { UserTweetFactory } from '#database/factories/user_tweet'
 
 // Tests for the static method validateTweetTypeAndQuoterValues on UserTweet model
 
@@ -76,6 +77,27 @@ test.group('UserTweet.validateTweetTypeAndQuoterValues', () => {
         (error as Error).message,
         'Invalid "quoted" tweet: "retweet" must be true and "quoter_*" fields must be set'
       )
+    }
+  })
+})
+// Tests for the static method validateTargetUserId on UserTweet model
+
+test.group('UserTweet.validateTargetUserId', () => {
+  test('allows when target_user_id exists', async ({ assert }) => {
+    const tweet = await UserTweetFactory.makeStubbed()
+    tweet.target_user_id = 1
+    await UserTweet.validateTargetUserId(tweet)
+    assert.isTrue(true)
+  })
+
+  test('rejects when target_user_id does not exist', async ({ assert }) => {
+    const tweet = await UserTweetFactory.makeStubbed()
+    tweet.target_user_id = 999
+    try {
+      await UserTweet.validateTargetUserId(tweet)
+      assert.fail('Expected error not thrown')
+    } catch (error) {
+      assert.equal((error as Error).message, 'Invalid target_user_id: 999 does not exist.')
     }
   })
 })
