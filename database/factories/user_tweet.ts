@@ -8,7 +8,7 @@ import UserTweet from '#models/user_tweet'
  */
 export const UserTweetFactory = Factory.define(UserTweet, ({ faker }) => {
   return {
-    type: 'normal',
+    type: 'normal' as const,
     target_user_id: 1,
     tweet_id: faker.string.uuid(),
     tweeter_username: faker.internet.userName(),
