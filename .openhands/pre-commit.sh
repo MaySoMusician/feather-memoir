@@ -7,9 +7,16 @@ echo "Running OpenHands pre-commit hook..."
 EXIT_CODE=0
 
 echo "Checking if the tests passes..."
-npm run test
+npm run test -- --no-clear
 if [ $? -ne 0 ]; then
     echo "Tests failed. Please fix the issues before committing."
+    EXIT_CODE=1
+fi
+
+echo "Checking if typing is correct..."
+npm run typecheck
+if [ $? -ne 0 ]; then
+    echo "Type checking failed. Please fix the issues before committing."
     EXIT_CODE=1
 fi
 
@@ -23,7 +30,7 @@ fi
 echo "Checking formatting results..."
 npx prettier --check .
 if [ $? -ne 0 ]; then
-    echo "Linting failed. Please fix the issues before committing."
+    echo "Format checking failed. Please fix the issues before committing."
     EXIT_CODE=1
 fi
 

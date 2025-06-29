@@ -18,6 +18,10 @@ yarn-error.log
 
 # Editors specific
 .fleet
+
+# Static data files not version controlled
+/static_data/target_users.json
+
 .idea
 .vscode
 
