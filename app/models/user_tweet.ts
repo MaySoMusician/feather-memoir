@@ -98,9 +98,7 @@ export default class UserTweet extends BaseModel {
   @beforeSave()
   static validateTargetUserId(userTweet: UserTweet) {
     if (!TargetUser.find(userTweet.target_user_id)) {
-      throw new Error(
-        `Invalid target_user_id: ${userTweet.target_user_id} does not exist.`
-      )
+      throw new Error(`Invalid target_user_id: ${userTweet.target_user_id} does not exist.`)
     }
   }
 }
