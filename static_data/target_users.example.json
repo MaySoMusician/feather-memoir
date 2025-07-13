@@ -1,4 +1,0 @@
-[
-  { "id": 1, "username": "bob", "enabled": true },
-  { "id": 2, "username": "alice", "enabled": false }
-]
