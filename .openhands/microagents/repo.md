@@ -2,7 +2,7 @@
 
 ## Purpose
 
-**Feather Memoir** is a TypeScript AdonisJS application for archiving and processing user tweets. It supports normal tweets, retweets, and quoted tweets, storing data in a SQLite database via Lucid ORM.
+**Feather Memoir** is a TypeScript **AdonisJS v6** application for archiving and processing user tweets. It supports normal tweets, retweets, and quoted tweets, storing data in a SQLite database via Lucid ORM.
 
 ## Setup
 
@@ -73,3 +73,7 @@ Any lint or formatting violations will cause the CI to fail.
 
 - Commit immediately whenever you make a small change. As a general rule, associate only one action (verb) with each commit.
 - A pre-commit hook will detect any linting, formatting, or type-check violations. The larger your changes become, the harder it is to fix those violations. From this perspective as well, please commit as early as possible whenever you make any changes.
+
+## AdonisJS v6
+
+Your knowledge of AdonisJS is outdated. You only know versions prior to v5, but we are using **v6** in this project. Make sure to read the latest documentation located in `/adonisjs-docs/`.
