@@ -68,7 +68,7 @@ export async function fetchRunDataset(
   let offset = 0
   let pageCount = 0
   while (true) {
-    if (pageCount > maxPages) {
+    if (pageCount >= maxPages) {
       logger.error('Exceeded max dataset pages', { datasetId, pageCount, maxPages })
       throw new Error(`Exceeded max dataset pages (${maxPages}) for dataset ${datasetId}`)
     }
