@@ -77,3 +77,4 @@ Any lint or formatting violations will cause the CI to fail.
 ## AdonisJS v6
 
 Your knowledge of AdonisJS is outdated. You only know versions prior to v5, but we are using **v6** in this project. Make sure to read the latest documentation located in `/adonisjs-docs/`.
+You must first check the ToC of the doc is located at `/adonisjs-docs/db.json`.
