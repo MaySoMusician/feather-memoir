@@ -52,6 +52,7 @@
   "dependencies": {
     "@adonisjs/core": "^6.17.2",
     "@adonisjs/lucid": "^21.6.0",
+    "apify-client": "^2.12.6",
     "better-sqlite3": "^11.8.1",
     "luxon": "^3.5.0",
     "reflect-metadata": "^0.2.2"
