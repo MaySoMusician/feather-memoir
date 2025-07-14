@@ -17,7 +17,7 @@ export default await Env.create(new URL('../', import.meta.url), {
   APP_KEY: Env.schema.string(),
   HOST: Env.schema.string({ format: 'host' }),
   LOG_LEVEL: Env.schema.string(),
-  APIFY_TOKEN: Env.schema.string.optional(),
+  APIFY_TOKEN: Env.schema.string(),
   APIFY_ACTOR_ID: Env.schema.string.optional(),
   APIFY_BASE_URL: Env.schema.string.optional(),
   APIFY_DATASET_PAGE_SIZE: Env.schema.number.optional(),
