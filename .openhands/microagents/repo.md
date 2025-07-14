@@ -66,7 +66,7 @@ Any lint or formatting violations will cause the CI to fail.
 
 ## Branch rules
 
-- The "master/main" branch is named `default`. Notice that this naming convention doesn't follow the today's widely-accepted git/github workflow standard. Your work mostly will start from this branch unless otherwise stated, so be sure to pull all the remote changes before starting to work!
+- The "master/main" branch is named `default`. Notice that this naming convention doesn't follow today's widely-accepted git/github workflow standard. Your work mostly will start from this branch unless otherwise stated, so be sure to pull all the remote changes before starting to work!
 - The branch of your (i.e. OpenHands's) sessions should be named `openhands/<describe your work>`.
 
 ## Commit rules
