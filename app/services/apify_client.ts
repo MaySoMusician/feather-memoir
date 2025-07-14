@@ -44,6 +44,8 @@ export async function startActorRun(
         type: error.type,
         clientMethod: error.clientMethod,
         path: error.path,
+        message: error.message,
+        stack: error.stack,
       })
     }
     throw error
@@ -53,11 +55,23 @@ export async function startActorRun(
 /**
  * Paginates through the actor run dataset and returns all items.
  */
-export async function fetchRunDataset(datasetId: string): Promise<any[]> {
+
+// Max number of pages to fetch to avoid infinite loops
+const MAX_DATASET_PAGES = 1000
+
+export async function fetchRunDataset(
+  datasetId: string,
+  maxPages: number = MAX_DATASET_PAGES
+): Promise<any[]> {
   const datasetClient = client.dataset(datasetId)
   const results: any[] = []
   let offset = 0
+  let pageCount = 0
   while (true) {
+    if (pageCount > maxPages) {
+      logger.error('Exceeded max dataset pages', { datasetId, pageCount, maxPages })
+      throw new Error(`Exceeded max dataset pages (${maxPages}) for dataset ${datasetId}`)
+    }
     const { items } = await datasetClient.listItems({
       limit: datasetPageSize,
       offset,
@@ -65,6 +79,10 @@ export async function fetchRunDataset(datasetId: string): Promise<any[]> {
     if (!items.length) break
     results.push(...items)
     offset += items.length
+    pageCount++
   }
   return results
 }
+
+// Export client and constants for testing
+export { client, MAX_DATASET_PAGES }
