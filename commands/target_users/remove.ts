@@ -8,7 +8,7 @@ export default class RemoveTargetUser extends BaseCommand {
     startApp: true,
   }
 
-  @flags.number({ description: 'ID of the target user to remove' })
+  @flags.number({ description: 'ID of the target user to remove', required: true })
   declare id: number
 
   public async run() {
