@@ -8,10 +8,10 @@ export default class AddTargetUser extends BaseCommand {
     startApp: true,
   }
 
-  @flags.number({ description: 'ID of the new target user' })
+  @flags.number({ description: 'ID of the new target user', required: true })
   declare id: number
 
-  @flags.string({ description: 'Username of the new target user' })
+  @flags.string({ description: 'Username of the new target user', required: true })
   declare username: string
 
   @flags.boolean({ name: 'enabled', description: 'Whether the user is enabled', default: true })

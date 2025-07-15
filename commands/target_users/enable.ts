@@ -8,7 +8,7 @@ export default class EnableTargetUser extends BaseCommand {
     startApp: true,
   }
 
-  @flags.number({ description: 'ID of the target user to enable' })
+  @flags.number({ description: 'ID of the target user to enable', required: true })
   declare id: number
 
   public async run() {

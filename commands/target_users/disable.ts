@@ -8,7 +8,7 @@ export default class DisableTargetUser extends BaseCommand {
     startApp: true,
   }
 
-  @flags.number({ description: 'ID of the target user to disable' })
+  @flags.number({ description: 'ID of the target user to disable', required: true })
   declare id: number
 
   public async run() {
