@@ -1,6 +1,7 @@
 import env from '#start/env'
+import type { ApifyConfig } from '#types/config/apify_config'
 
-export default {
+const config: ApifyConfig = {
   /**
    * Apify API token
    */
@@ -41,3 +42,5 @@ export default {
    */
   waitSecs: env.get('APIFY_WAIT_SECS', 300),
 }
+
+export default config
