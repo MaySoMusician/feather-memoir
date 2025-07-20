@@ -1,4 +1,4 @@
-import ApifyClientService from '#services/apify_client'
+import ApifyClientService from '#services/apify_client_service'
 import type { ApifyConfig } from '#types/config/apify_config'
 import type { ApplicationService } from '@adonisjs/core/types'
 import { ApifyClient } from 'apify-client'

@@ -1,5 +1,5 @@
 import TargetUser from '#models/target_user'
-import ApifyClientService from '#services/apify_client'
+import ApifyClientService from '#services/apify_client_service'
 import { objectToLogString } from '#utils/log'
 import { inject } from '@adonisjs/core'
 import { BaseCommand, flags } from '@adonisjs/core/ace'
