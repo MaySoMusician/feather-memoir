@@ -39,8 +39,8 @@ export default class FetchTweets extends BaseCommand {
     const resultDataItems = await apifyClientService.fetchRunDataset(runResult.datasetId)
     this.logger.success(`(${resultDataItems.length} items)`)
 
-    // @TODO: 1. Store fetched tweets to the database. (assume the type of resultDataItems is Array<SomeTweetType>)
-    // @TODO: 2. Update lastFetchedAt of the TargetUser with `runResult.startedAt`
+    // @TODO: 1. Store fetched tweets to the database. (assume the type of resultDataItems is Array<SomeTweetType>).
+    // @TODO: 2. Track the maximum `createdAt` and update `targetUser.lastFetchedAt` after processing; save `targetUser`.
   }
 
   private decideSinceValue(targetUser: TargetUser): DateTime<true> {
