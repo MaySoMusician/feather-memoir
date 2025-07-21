@@ -22,7 +22,7 @@ export default class TweetImportService {
       return
     }
 
-    const maxCreatedAt = this.computeLastFetchedAt(tweetsData)
+    const maxCreatedAt = this.computeNewLastFetchedAt(tweetsData)
 
     return db.transaction(async (transaction) => {
       const created = await this.upsertTweets(tweetsData, targetUser, transaction)
@@ -35,10 +35,17 @@ export default class TweetImportService {
     })
   }
 
-  private computeLastFetchedAt(tweetsData: FetchedTweetDataPartialType[]): DateTime {
-    return tweetsData
+  private computeNewLastFetchedAt(tweetsData: FetchedTweetDataPartialType[]): DateTime<true> {
+    const computed = tweetsData
       .map((data) => DateTimeFromTwitterFormat(data.createdAt))
+      .filter((datetime) => datetime.isValid)
       .reduce((a, b) => (b > a ? b : a), DateTime.fromMillis(0))
+
+    if (!computed.isValid || computed.equals(DateTime.fromMillis(0))) {
+      throw new Error(`Failed to compute new lastFetchedAt: ${computed}`)
+    }
+
+    return computed
   }
 
   private async upsertTweets(
