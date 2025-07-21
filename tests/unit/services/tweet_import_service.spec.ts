@@ -37,7 +37,7 @@ test.group('TweetImportService.import', (group) => {
     assert.isTrue(storedTargetUser.lastFetchedAt!.equals(DateTime.fromISO('2025-07-20T00:00:00Z')))
   })
 
-  test("doesn't save tweets and keeps lastFetchedAt", async ({ assert }) => {
+  test("doesn't save tweets and keeps lastFetchedAt when no data is passed", async ({ assert }) => {
     const tweetImportService = new TweetImportService()
     const targetUser = await TargetUserFactory.merge({
       lastFetchedAt: DateTime.fromISO('2025-01-01T00:00:00Z'),
