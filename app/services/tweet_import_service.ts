@@ -6,6 +6,7 @@ import { type TransactionClientContract } from '@adonisjs/lucid/types/database'
 import UserTweet from '#models/user_tweet'
 import { CreateManyValue } from '#types/lucid_helpers'
 import { DateTimeFromTwitterFormat } from '#utils/twitter'
+import logger from '@adonisjs/core/services/logger'
 
 export type TweetImportServiceConfig = {}
 
@@ -24,8 +25,13 @@ export default class TweetImportService {
     const maxCreatedAt = this.computeLastFetchedAt(tweetsData)
 
     return db.transaction(async (transaction) => {
-      await this.upsertTweets(tweetsData, targetUser, transaction)
+      const created = await this.upsertTweets(tweetsData, targetUser, transaction)
+      logger.info(`${created.length} items of UserTweet inserted.`)
+
       await this.updateTargetUserTimestamp(targetUser, maxCreatedAt, transaction)
+      logger.info(
+        `TargetUser (id = ${targetUser.id}) lastFetchedAt updated to ${maxCreatedAt.toISO()}`
+      )
     })
   }
 
