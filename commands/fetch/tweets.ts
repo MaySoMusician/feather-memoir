@@ -1,5 +1,6 @@
 import TargetUser from '#models/target_user'
 import ApifyClientService from '#services/apify_client_service'
+import TweetImportService from '#services/tweet_import_service'
 import { objectToLogString } from '#utils/log'
 import { inject } from '@adonisjs/core'
 import { BaseCommand, flags } from '@adonisjs/core/ace'
@@ -26,7 +27,7 @@ export default class FetchTweets extends BaseCommand {
   declare sinceTimestamp: string | undefined
 
   @inject()
-  async run(apifyClientService: ApifyClientService) {
+  async run(apifyClientService: ApifyClientService, tweetImportService: TweetImportService) {
     const targetUser = await TargetUser.findByOrFail('id', this.targetUserId)
     const sinceDatetime = this.decideSinceValue(targetUser)
     const since = `${sinceDatetime.toFormat('yyyy-MM-dd_HH:mm:ss')}_UTC`
@@ -37,10 +38,9 @@ export default class FetchTweets extends BaseCommand {
     this.logger.success(`Actor completed (${objectToLogString(runResult)})`)
 
     const resultDataItems = await apifyClientService.fetchRunDataset(runResult.datasetId)
-    this.logger.success(`(${resultDataItems.length} items)`)
+    this.logger.success(`Fetched ${resultDataItems.length} items`)
 
-    // @TODO: 1. Store fetched tweets to the database. (assume the type of resultDataItems is Array<SomeTweetType>).
-    // @TODO: 2. Track the maximum `createdAt` and update `targetUser.lastFetchedAt` after processing; save `targetUser`.
+    await tweetImportService.import(resultDataItems, targetUser)
   }
 
   private decideSinceValue(targetUser: TargetUser): DateTime<true> {
