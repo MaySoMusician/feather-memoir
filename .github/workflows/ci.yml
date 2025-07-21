@@ -31,4 +31,4 @@ jobs:
         run: npx prettier --check .
 
       - name: Run tests
-        run: npm run test
+        run: npm run test -- --no-clear --reporters=github
