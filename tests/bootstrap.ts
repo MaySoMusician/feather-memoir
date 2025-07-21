@@ -24,8 +24,8 @@ export const plugins: Config['plugins'] = [assert(), pluginAdonisJS(app)]
 export const runnerHooks: Required<Pick<Config, 'setup' | 'teardown'>> = {
   setup: [
     async () => {
-      const rollback = await testUtils.db().truncate()
-      return rollback
+      // Register truncate method for teardown
+      return await testUtils.db().truncate()
     },
   ],
   teardown: [],
