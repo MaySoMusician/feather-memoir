@@ -7,6 +7,7 @@ import app from '@adonisjs/core/services/app'
 import testUtils from '@adonisjs/core/services/test_utils'
 import { DateTime } from 'luxon'
 import { TargetUserFactory } from '#database/factories/target_user_factory'
+import { defaultData } from '#tests/fixtures/fetched_tweet_data_partial_type'
 
 test.group('fetch:tweets command', (group) => {
   let runActorSpy: any
@@ -32,35 +33,7 @@ test.group('fetch:tweets command', (group) => {
       }
 
       async fetchRunDataset() {
-        return [
-          {
-            type: 'tweet',
-            id: '1',
-            text: 'test',
-            source: '',
-            retweetCount: 0,
-            replyCount: 0,
-            likeCount: 0,
-            quoteCount: 0,
-            viewCount: 0,
-            createdAt: 'Sun Jul 20 00:00:00 +0000 2025',
-            bookmarkCount: 0,
-            author: {
-              type: 'user',
-              userName: 'elonmusk',
-              url: '',
-              twitterUrl: '',
-              id: '123',
-              name: 'elonmusk',
-            },
-            url: '',
-            twitterUrl: '',
-            isReply: false,
-            conversationId: '1',
-            isRetweet: false,
-            isQuote: false,
-          },
-        ]
+        return [defaultData()]
       }
     }
     runActorSpy = sinon.spy(FakeApifyClientService.prototype, 'runActor')
