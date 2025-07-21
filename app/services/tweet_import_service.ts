@@ -127,6 +127,8 @@ export default class TweetImportService {
       }
     }
 
+    // Log data for error investigation
+    logger.debug(JSON.stringify(data))
     throw new Error('Invalid data type')
   }
 
