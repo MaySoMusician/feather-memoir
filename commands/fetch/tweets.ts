@@ -60,7 +60,7 @@ export default class FetchTweets extends BaseCommand {
     this.logger.info(
       `No "since" flag is passed. Try to read the "lastFetchedAt" of the TargetUser.`
     )
-    const lastFetchedAt = targetUser.lastFetchedAt
+    const { lastFetchedAt } = targetUser
 
     if (!lastFetchedAt) {
       throw new Error(
