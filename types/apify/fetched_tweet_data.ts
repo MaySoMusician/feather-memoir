@@ -38,10 +38,10 @@ export type FetchedTweetDataBasePartialType = {
   viewCount: number
   createdAt: string
   bookmarkCount: number
-  author: FethcedTwitterUserDataPartialType
+  author: FetchedTwitterUserDataPartialType
 }
 
-export type FethcedTwitterUserDataPartialType = {
+export type FetchedTwitterUserDataPartialType = {
   type: 'user'
   userName: string
   url: string
