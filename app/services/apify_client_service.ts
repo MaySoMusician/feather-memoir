@@ -1,4 +1,4 @@
-import { type ApifyClient, ApifyApiError, type ActorClient } from 'apify-client'
+import { type ApifyClient, ApifyApiError, type ActorClient, type ActorRun } from 'apify-client'
 import logger from '@adonisjs/core/services/logger'
 
 export type ApifyClientServiceConfig = {
@@ -6,6 +6,14 @@ export type ApifyClientServiceConfig = {
   actorId: string
   datasetPageSize: number
   waitSecs: number
+}
+
+export type RunActorResult = {
+  runId: ActorRun['id']
+  datasetId: ActorRun['defaultDatasetId']
+  buildId: ActorRun['buildId']
+  startedAt: ActorRun['startedAt']
+  finishedAt: ActorRun['finishedAt']
 }
 
 // Max number of pages to fetch to avoid infinite loops
@@ -30,19 +38,16 @@ export default class ApifyClientService {
    * Starts the Twitter scraper actor and waits for completion.
    * @returns runId and datasetId for data retrieval.
    */
-  async startActorRun(
-    username: string,
-    since?: string
-  ): Promise<{ runId: string; datasetId: string }> {
+  async runActor(username: string, since?: string): Promise<RunActorResult> {
     const searchTerms = [
       `from:${username} include:nativeretweets -filter:replies${since ? ` since:${since}` : ''}`,
     ]
     try {
-      const runData = await this.actor.call(
+      const { id, defaultDatasetId, buildId, startedAt, finishedAt } = await this.actor.call(
         { searchTerms, sort: 'Latest' },
         { waitSecs: this.waitSecs }
       )
-      return { runId: runData.id, datasetId: runData.defaultDatasetId }
+      return { runId: id, datasetId: defaultDatasetId, buildId, startedAt, finishedAt }
     } catch (error) {
       if (error instanceof ApifyApiError) {
         logger.error('Apify actor call failed', {

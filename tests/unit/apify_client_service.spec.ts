@@ -1,6 +1,6 @@
 import { test } from '@japa/runner'
 import sinon from 'sinon'
-import ApifyClientService from '#services/apify_client'
+import ApifyClientService from '#services/apify_client_service'
 import { ActorClient } from 'apify-client'
 
 test.group('ApifyClientService.fetchRunDataset pagination guard', (group) => {
