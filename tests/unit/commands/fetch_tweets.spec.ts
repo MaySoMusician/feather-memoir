@@ -2,11 +2,11 @@ import { test } from '@japa/runner'
 import FetchTweets from '#commands/fetch/tweets'
 import ace from '@adonisjs/core/services/ace'
 import sinon from 'sinon'
-import TargetUser from '#models/target_user'
 import ApifyClientService from '#services/apify_client_service'
 import app from '@adonisjs/core/services/app'
 import testUtils from '@adonisjs/core/services/test_utils'
 import { DateTime } from 'luxon'
+import { TargetUserFactory } from '#database/factories/target_user_factory'
 
 test.group('fetch:tweets command', (group) => {
   let runActorSpy: any
@@ -86,7 +86,7 @@ test.group('fetch:tweets command', (group) => {
   })
 
   test('uses since flag when provided and valid', async ({ assert }) => {
-    const targetUser = await TargetUser.create({ username: 'elonmusk', enabled: true })
+    const targetUser = await TargetUserFactory.create()
     const isoString = '2025-01-01T00:00:00Z'
     const command = await ace.create(FetchTweets, [
       `--target-user-id=${targetUser.id}`,
@@ -101,7 +101,7 @@ test.group('fetch:tweets command', (group) => {
   })
 
   test('throws when since flag is invalid', async ({ assert }) => {
-    const targetUser = await TargetUser.create({ username: 'elonmusk', enabled: true })
+    const targetUser = await TargetUserFactory.create()
     const invalidDate = 'invalid'
     const command = await ace.create(FetchTweets, [
       `--target-user-id=${targetUser.id}`,
@@ -118,11 +118,9 @@ test.group('fetch:tweets command', (group) => {
   })
 
   test('uses lastFetchedAt when no since flag and valid', async ({ assert }) => {
-    const targetUser = await TargetUser.create({
-      username: 'elonmusk',
-      enabled: true,
+    const targetUser = await TargetUserFactory.merge({
       lastFetchedAt: DateTime.fromISO('2025-01-01T00:00:00Z'),
-    })
+    }).create()
     const command = await ace.create(FetchTweets, [`--target-user-id=${targetUser.id}`])
 
     await command.exec()
@@ -136,11 +134,9 @@ test.group('fetch:tweets command', (group) => {
   })
 
   test('throws when no since flag and lastFetchedAt is null', async ({ assert }) => {
-    const targetUser = await TargetUser.create({
-      username: 'elonmusk',
-      enabled: true,
+    const targetUser = await TargetUserFactory.merge({
       lastFetchedAt: null,
-    })
+    }).create()
     const command = await ace.create(FetchTweets, [`--target-user-id=${targetUser.id}`])
 
     await command.exec()
