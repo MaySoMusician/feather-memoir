@@ -2,10 +2,6 @@ import { DateTime } from 'luxon'
 import Factory from '@adonisjs/lucid/factories'
 import UserTweet from '#models/user_tweet'
 
-/**
- * Factory for creating UserTweet instances in tests.
- * Creates stubbed instances without hitting the DB.
- */
 export const UserTweetFactory = Factory.define(UserTweet, ({ faker }) => {
   return {
     type: 'normal' as const,
