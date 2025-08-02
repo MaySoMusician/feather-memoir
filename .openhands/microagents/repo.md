@@ -44,6 +44,7 @@
 - `database/`: migrations and seeders
 - `start/`: application bootstrap (`routes.ts`, `kernel.ts`)
 - `tests/`: Japa tests and bootstrap
+- `commands/`: CLI commands for fetching and loading tweets, managing target users
 - Root files: `package.json`, `tsconfig.json`, `adonisrc.ts`, `eslint.config.js`, `.env.example`, etc.
 
 ## CI & Workflows
