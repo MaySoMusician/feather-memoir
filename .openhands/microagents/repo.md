@@ -63,6 +63,6 @@ Triggered on push to the `default` branch and pull requests. The workflow sets u
 
 <IMPORTANT_RULE>
 
-You must always read the documentations of the AdonisJS v6 or any other tech stacks BEFORE you start anything. You must use Context7 system tools (`resolve-library-id` and `get-library-docs`) to read any docs first.
+You must always read the documentation of the AdonisJS v6 or any other tech stacks BEFORE you start anything. You must use Context7 system tools (`resolve-library-id` and `get-library-docs`) to read any docs first.
 
 </IMPORTANT_RULE>
