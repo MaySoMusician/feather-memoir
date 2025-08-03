@@ -49,21 +49,7 @@
 
 ## CI & Workflows
 
-The repository uses GitHub Actions for continuous integration, defined in `.github/workflows/ci.yml`:
-
-- Triggers:
-  - `push` to the `default` branch
-  - `pull_request` events
-- Jobs:
-  1. Checkout code (`actions/checkout@v3`)
-  2. Setup Node.js 22.x with npm cache (`actions/setup-node@v3`)
-  3. Install dependencies (`npm ci`)
-  4. Run TypeScript type-check (`npm run typecheck`)
-  5. Run ESLint (`npm run lint`)
-  6. Check Prettier formatting (`npx prettier --check .`)
-  7. Run tests (`npm run test`)
-
-Any lint or formatting violations will cause the CI to fail.
+Triggered on push to the `default` branch and pull requests. The workflow sets up Node, installs dependencies, then runs type checks, lint, Prettier, and tests, failing on formatting or lint errors.
 
 ## Branch rules
 
@@ -75,7 +61,8 @@ Any lint or formatting violations will cause the CI to fail.
 - Commit immediately whenever you make a small change. As a general rule, associate only one action (verb) with each commit.
 - A pre-commit hook will detect any linting, formatting, or type-check violations. The larger your changes become, the harder it is to fix those violations. From this perspective as well, please commit as early as possible whenever you make any changes.
 
-## AdonisJS v6
+<IMPORTANT_RULE>
 
-Your knowledge of AdonisJS is outdated. You only know versions prior to v5, but we are using **v6** in this project. Make sure to read the latest documentation located in `/adonisjs-docs/`.
-You must first check the ToC of the doc is located at `/adonisjs-docs/db.json`.
+You must always read the documentation of the AdonisJS v6 or any other tech stacks BEFORE you start anything. You must use Context7 system tools (`resolve-library-id` and `get-library-docs`) to read any docs first.
+
+</IMPORTANT_RULE>
